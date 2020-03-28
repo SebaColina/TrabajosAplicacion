@@ -1,8 +1,9 @@
-package TA3;
+package TA4;
 
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Random;
 
 /*
     Ejercicio 1: Lenguaje natural
@@ -167,21 +168,86 @@ public class ContadorPalabras {
         return contador;
 
     }
+
+    /*-------------------------------------------------------------------------------------------------------------
+     * EJERCICIO 1 TA4
+     * lenguaje natural:
+     * este metodo toma una linea aleatoria del archivo. la idea fue aprovechar el array con todas las lineas
+     * del archivo que se obtiene por uno de los metodos desarrollados en el TA3 para de este modo no necesitar
+     * recorrer el archivo otra vez. en este caso se necesitaba un array por linea de archivo en lugar de un solo
+     * array con todas las lineas del mismo como se nos pedia en el TA3.
+     * construimos un metodo llamado darLineaArchivo el cual selleciona una linea al azar del archivo.
+     * luego, desarrollamos otro metodo llamado darArrayDeUnaLinea el cual nos devuelve un array donde cada
+     * elemento es una palabra de la linea aleatoria seleccionada.
+     * por ultimo construimos el metodo principal del ejercicio llamado darPalabrasComunes el cual compara
+     * dos arrays y devuelve otro array con las palabras comunes entre ambos
+     */
+    public String darLineaAleatoria(String[] lineasArchivo) {
+        Random random = new Random();
+        int valorDado = random.nextInt(lineasArchivo.length);
+        return lineasArchivo[valorDado];
+    }
+
+    // a partir de una linea del archivo, devuelve un array donde cada elemento es
+    // una palabra
+    public String[] darArrayDeUnaLinea(String unalinea) {
+        String[] linea = unalinea.split(" ");
+        return linea;
+    }
+
+    // compara dos arrays de palabras y devuelve un array con las palabras comunes
+    // en ambos
+    public String[] darPalabrasComunes(String[] palabras1, String[] palabras2) {
+        String palabrasComunesEncontradas = "";
+        for (int i = 0; i < palabras1.length; i++) {
+            for (int j = 0; j < palabras2.length; j++) {
+                if (palabras1[i].equals(palabras2[j]) && palabrasComunesEncontradas.indexOf(palabras2[j]) == -1) {
+                    palabrasComunesEncontradas = palabrasComunesEncontradas + " " + palabras2[j];
+                }
+            }
+        }
+        String[] arrayDePalabras = palabrasComunesEncontradas.split(" ");
+        return arrayDePalabras;
+    }
+
+    // imprime en consola los elementos de un array
+    public void imprimirArrayDePalabrasComunes(String[] palabrasComunes) {
+        if (palabrasComunes.length > 1) {
+            System.out.println("las palabras comunes encontradas son las siguientes: ");
+            for (int i = 0; i < palabrasComunes.length; i++) {
+                System.out.print(palabrasComunes[i] + " ");
+            }
+        }
+        else {
+            System.out.println("no hay palabras comunes");
+        }
+    }
 }
 
 // clase que contiene el metodo main en el cual estaremos testeando nuestro
 // programa con cada uno de sus metodos.
 class Principal {
     public static void main(String[] args) {
-        ContadorPalabras prueba = new ContadorPalabras();
+        ContadorPalabras contadorDePalabras = new ContadorPalabras();
         System.out.println(("Cantidad de palabras con largo mayor al indicado: "
-                + prueba.contarPalabrasMayores("hola hola hola hol", 3)));
+                + contadorDePalabras.contarPalabrasMayores("hola hola hola hol", 3)));
 
-        prueba.contarVocalesYConsonantes("hola hola hOla hol123");
-        System.out.println("Cantidad De Consonantes: " + prueba.getConsonantes());
-        System.out.println("Cantidad De Vocales: " + prueba.getVocales());
+        contadorDePalabras.contarVocalesYConsonantes("hola hola hOla hol123");
+        System.out.println("Cantidad De Consonantes: " + contadorDePalabras.getConsonantes());
+        System.out.println("Cantidad De Vocales: " + contadorDePalabras.getVocales());
 
-        System.out.println("Cantidad de palabras: " + prueba.CantidadPalabras(prueba.ObtenerLineasDeArchivo(
-                "C:/Users/FIT/Desktop/UCU/Algoritmos I/RepoEjerciciosAplicacion/TrabajosAplicacion/TA3/archivoPrueba.txt")));
+        String[] lineasDelArchivo = (contadorDePalabras.ObtenerLineasDeArchivo(
+                "C:/Users/FIT/Desktop/UCU/Algoritmos I/RepoEjerciciosAplicacion/TrabajosAplicacion/TA4/UT2_TA1_ARCHIVO_EJEMPLO.txt"));
+        System.out.println("Cantidad de palabras: " + contadorDePalabras.CantidadPalabras(lineasDelArchivo));
+
+        // --------------------------------------------------------------------------------------------------------
+        // prueba del TA4
+        // para conseguir dos lineas aleatorias del archivo consideramos correcto que se pueda obtener dos veces la misma linea
+        String lineaAleatoria1 = contadorDePalabras.darLineaAleatoria(lineasDelArchivo);
+        String lineaAleatoria2 = contadorDePalabras.darLineaAleatoria(lineasDelArchivo);
+        String[] arrayDePalabras1 = contadorDePalabras.darArrayDeUnaLinea(lineaAleatoria1);
+        String[] arrayDePalabras2 = contadorDePalabras.darArrayDeUnaLinea(lineaAleatoria2);
+        String[] palabrasComunesObtenidas = contadorDePalabras.darPalabrasComunes(arrayDePalabras1, arrayDePalabras2);
+        contadorDePalabras.imprimirArrayDePalabrasComunes(palabrasComunesObtenidas);
     }
 }
