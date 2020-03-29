@@ -250,7 +250,7 @@ class Principal {
         System.out.println("Cantidad De Consonantes: " + contadorDePalabras.getConsonantes());
         System.out.println("Cantidad De Vocales: " + contadorDePalabras.getVocales());
 
-        String[] lineasDelArchivo = (contadorDePalabras.ObtenerLineasDeArchivo("UT2_TA1_ARCHIVO_EJEMPLO.txt"));
+        String[] lineasDelArchivo = (contadorDePalabras.ObtenerLineasDeArchivo("TA4/UT2_TA1_ARCHIVO_EJEMPLO.txt"));
         System.out.println("Cantidad de palabras: " + contadorDePalabras.CantidadPalabras(lineasDelArchivo));
 
         // --------------------------------------------------------------------------------------------------------
@@ -261,6 +261,19 @@ class Principal {
         String[] arrayDePalabras1 = contadorDePalabras.darArrayDeUnaLinea(lineaAleatoria1);
         String[] arrayDePalabras2 = contadorDePalabras.darArrayDeUnaLinea(lineaAleatoria2);
         String[] palabrasComunesObtenidas = contadorDePalabras.darPalabrasComunes(arrayDePalabras1, arrayDePalabras2);
+
+        String[] pruebaArray = {"Hola", "hola", "hola1", "hola2"};
+        String[] pruebaArray2 = {"Hola", "hola", "hola1", "hola2"};
+        String[] pruebaArray3 = {};
+
+        System.out.println("\nMétodo con palabras comunes: ");
+        contadorDePalabras.imprimirArrayDePalabrasComunes(contadorDePalabras.darPalabrasComunes(pruebaArray,pruebaArray2));
+
+        System.out.println("\nMétodo sin palabras comunes: ");
+        contadorDePalabras.imprimirArrayDePalabrasComunes(contadorDePalabras.darPalabrasComunes(pruebaArray2,pruebaArray3));
+
+
+        System.out.println("\nPalabras comunes de dos lineas aleatorias tomadas del archivo: ");
         contadorDePalabras.imprimirArrayDePalabrasComunes(palabrasComunesObtenidas);
     }
 }
