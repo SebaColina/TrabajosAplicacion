@@ -201,7 +201,7 @@ public class ContadorPalabras {
         String palabrasRes = "";
         for (int i = 0; i < palabras1.length; i++) {
             for (int z = 0; z < palabras2.length; z++) {
-                if (palabras1[i].equals(palabras2[z])) {
+                if (palabras1[i].equals(palabras2[z]) && palabrasRes.indexOf(palabras1[i]) == -1) {
                     //La primer palabra la agrego directamente
                     if (palabrasRes == ""){
                         palabrasRes = palabras2[z];
@@ -209,7 +209,7 @@ public class ContadorPalabras {
                     } else{
                         palabrasRes += "," + palabras2[z];
                     }
-                    
+
                 }
             }
         }
@@ -217,7 +217,7 @@ public class ContadorPalabras {
         String[] palabrasResArray = palabrasRes.split(",");
 
         return palabrasResArray;
-        
+
     }
 
     // imprime en consola los elementos de un array
@@ -225,8 +225,8 @@ public class ContadorPalabras {
         String resultado = "";
 
         if (arregloRecibido.length == 1 && arregloRecibido[0] == "") {
-            System.out.println("El arreglo recibido es vacio.");
-            
+            System.out.println("El arreglo recibido es vacio, por lo que no hay palabras comunes");
+
         }else {
             for (int i = 0 ; i < arregloRecibido.length; i++){
                 if ((arregloRecibido[i] != "")){
@@ -250,7 +250,7 @@ class Principal {
         System.out.println("Cantidad De Consonantes: " + contadorDePalabras.getConsonantes());
         System.out.println("Cantidad De Vocales: " + contadorDePalabras.getVocales());
 
-        String[] lineasDelArchivo = (contadorDePalabras.ObtenerLineasDeArchivo("UT2_TA1_ARCHIVO_EJEMPLO.txt"));
+        String[] lineasDelArchivo = (contadorDePalabras.ObtenerLineasDeArchivo("C:/Users/FIT/Desktop/UCU/Algoritmos I/RepoEjerciciosAplicacion/TrabajosAplicacion/TA4/UT2_TA1_ARCHIVO_EJEMPLO.txt"));
         System.out.println("Cantidad de palabras: " + contadorDePalabras.CantidadPalabras(lineasDelArchivo));
 
         // --------------------------------------------------------------------------------------------------------
