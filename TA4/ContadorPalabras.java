@@ -198,28 +198,42 @@ public class ContadorPalabras {
     // compara dos arrays de palabras y devuelve un array con las palabras comunes
     // en ambos
     public String[] darPalabrasComunes(String[] palabras1, String[] palabras2) {
-        String palabrasComunesEncontradas = "";
+        String palabrasRes = "";
         for (int i = 0; i < palabras1.length; i++) {
-            for (int j = 0; j < palabras2.length; j++) {
-                if (palabras1[i].equals(palabras2[j]) && palabrasComunesEncontradas.indexOf(palabras2[j]) == -1) {
-                    palabrasComunesEncontradas = palabrasComunesEncontradas + " " + palabras2[j];
+            for (int z = 0; z < palabras2.length; z++) {
+                if (palabras1[i].equals(palabras2[z])) {
+                    //La primer palabra la agrego directamente
+                    if (palabrasRes == ""){
+                        palabrasRes = palabras2[z];
+                        //A partir de la segunda las agrego con un separador
+                    } else{
+                        palabrasRes += "," + palabras2[z];
+                    }
+                    
                 }
             }
         }
-        String[] arrayDePalabras = palabrasComunesEncontradas.split(" ");
-        return arrayDePalabras;
+
+        String[] palabrasResArray = palabrasRes.split(",");
+
+        return palabrasResArray;
+        
     }
 
     // imprime en consola los elementos de un array
-    public void imprimirArrayDePalabrasComunes(String[] palabrasComunes) {
-        if (palabrasComunes.length > 1) {
-            System.out.println("las palabras comunes encontradas son las siguientes: ");
-            for (int i = 0; i < palabrasComunes.length; i++) {
-                System.out.print(palabrasComunes[i] + " ");
+    public void imprimirArrayDePalabrasComunes(String[] arregloRecibido) {
+        String resultado = "";
+
+        if (arregloRecibido.length == 1 && arregloRecibido[0] == "") {
+            System.out.println("El arreglo recibido es vacio.");
+            
+        }else {
+            for (int i = 0 ; i < arregloRecibido.length; i++){
+                if ((arregloRecibido[i] != "")){
+                    resultado += arregloRecibido[i].toString() + " ";
+                }
             }
-        }
-        else {
-            System.out.println("no hay palabras comunes");
+            System.out.println(resultado);
         }
     }
 }
@@ -236,8 +250,7 @@ class Principal {
         System.out.println("Cantidad De Consonantes: " + contadorDePalabras.getConsonantes());
         System.out.println("Cantidad De Vocales: " + contadorDePalabras.getVocales());
 
-        String[] lineasDelArchivo = (contadorDePalabras.ObtenerLineasDeArchivo(
-                "C:/Users/FIT/Desktop/UCU/Algoritmos I/RepoEjerciciosAplicacion/TrabajosAplicacion/TA4/UT2_TA1_ARCHIVO_EJEMPLO.txt"));
+        String[] lineasDelArchivo = (contadorDePalabras.ObtenerLineasDeArchivo("UT2_TA1_ARCHIVO_EJEMPLO.txt"));
         System.out.println("Cantidad de palabras: " + contadorDePalabras.CantidadPalabras(lineasDelArchivo));
 
         // --------------------------------------------------------------------------------------------------------
